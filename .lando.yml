@@ -1,0 +1,31 @@
+name: lararepalo
+
+recipe: laravel
+
+config:
+  webroot: public
+  php: '8.3'
+  database: mysql:8.0
+
+# Reverb runs in the PHP container on port 8080.  Lando terminates TLS and
+# routes the public WebSocket hostname to that internal port.
+proxy:
+  appserver:
+    - lararepalo.lndo.site
+    - reverb.lararepalo.lndo.site:8080
+
+services:
+  node:
+    type: node:22
+
+tooling:
+  reverb:
+    service: appserver
+    description: Run the Laravel Reverb WebSocket server.
+    cmd: php artisan reverb:start --host=0.0.0.0 --port=8080
+  queue:
+    service: appserver
+    description: Run the Laravel queue worker.
+    cmd: php artisan queue:work
+  npm:
+    service: node
