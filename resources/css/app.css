@@ -12,19 +12,27 @@
     --color-canopy: #0f1e17;
     --color-canopy-surface: #182c23;
     --color-canopy-light: #233f33;
+    --color-canopy-border: #233f33;
+    --color-canopy-hover: #29483b;
     --color-mist: #f4f7f4;
     --color-mist-dark: #e2e9e2;
+    --color-mist-surface: #ffffff;
+    --color-mist-border: #e2e9e2;
     --color-spore: #1b4d3e;
     --color-spore-hover: #143b2f;
     --color-spore-light: #296d59;
+    --color-spore-muted: #0f3026;
     --color-chanterelle: #d97706;
     --color-chanterelle-light: #f59e0b;
     --color-chanterelle-dark: #b45309;
+    --color-chanterelle-hover: #b45309;
     --color-biolum: #0d9488;
     --color-biolum-light: #14b8a6;
     --color-biolum-dark: #0f766e;
+    --color-biolum-hover: #0f766e;
     --color-slate-deep: #1c2925;
     --color-slate-muted: #3d524a;
+    --color-slate-subtle: #6b8077;
     --color-offwhite: #f9fafb;
 
     --text-fluid-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
@@ -37,6 +45,9 @@
     --spacing-touch: 48px;
     --shadow-glow: 0 0 15px rgb(13 148 136 / 30%);
     --shadow-amber-glow: 0 0 15px rgb(217 119 6 / 35%);
+    --shadow-amber-focus: 0 0 0 3px var(--color-canopy), 0 0 0 6px var(--color-chanterelle);
+    --shadow-teal-glow: 0 0 15px rgb(13 148 136 / 30%);
+    --shadow-chanterelle-glow: 0 0 15px rgb(217 119 6 / 35%);
 }
 
 @utility ada-focus {
@@ -46,5 +57,24 @@
         outline: 3px solid var(--color-chanterelle);
         outline-offset: 3px;
         border-radius: 0.25rem;
+    }
+}
+
+@utility styleguide-section {
+    scroll-margin-top: 7rem;
+}
+
+@utility touch-target-inspect {
+    position: relative;
+}
+
+@layer utilities {
+    .show-touch-grid .touch-target-inspect::before {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        content: '';
+        border: 1px dashed rgb(217 119 6 / 80%);
+        border-radius: inherit;
     }
 }

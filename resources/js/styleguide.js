@@ -1,0 +1,93 @@
+const styleguide = document.querySelector('[data-styleguide]');
+
+if (styleguide) {
+    const announcement = styleguide.querySelector('[data-announcement]');
+    const announce = (message) => {
+        announcement.textContent = message;
+    };
+
+    const themeToggle = styleguide.querySelector('[data-theme-toggle]');
+    const applyTheme = (isDark) => {
+        document.documentElement.classList.toggle('dark', isDark);
+        themeToggle.setAttribute('aria-pressed', String(isDark));
+        themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
+    };
+
+    applyTheme(localStorage.getItem('styleguide-theme') !== 'light');
+
+    themeToggle.addEventListener('click', () => {
+        const isDark = !document.documentElement.classList.contains('dark');
+        localStorage.setItem('styleguide-theme', isDark ? 'dark' : 'light');
+        applyTheme(isDark);
+        announce(`Switched to ${isDark ? 'dark' : 'light'} mode.`);
+    });
+
+    styleguide.querySelector('[data-touch-grid]').addEventListener('click', (event) => {
+        const isVisible = styleguide.classList.toggle('show-touch-grid');
+        event.currentTarget.setAttribute('aria-pressed', String(isVisible));
+        announce(`48 pixel touch target grid ${isVisible ? 'shown' : 'hidden'}.`);
+    });
+
+    const menuButton = styleguide.querySelector('[data-menu-button]');
+    const menu = styleguide.querySelector('[data-mobile-menu]');
+    menuButton.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('hidden') === false;
+        menuButton.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    styleguide.querySelector('[data-search]').addEventListener('input', (event) => {
+        const query = event.target.value.trim().toLowerCase();
+        styleguide.querySelectorAll('[data-styleguide-section]').forEach((section) => {
+            section.classList.toggle('hidden', !section.textContent.toLowerCase().includes(query));
+        });
+        announce(query ? `Filtered components by ${query}.` : 'Showing all components.');
+    });
+
+    styleguide.querySelectorAll('[data-copy-value]').forEach((button) => {
+        button.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(button.dataset.copyValue);
+                announce(`${button.dataset.copyValue} copied to the clipboard.`);
+            } catch {
+                announce('Clipboard access is unavailable in this browser.');
+            }
+        });
+    });
+
+    const switchControl = styleguide.querySelector('[data-switch]');
+    switchControl.addEventListener('click', () => {
+        const isEnabled = switchControl.getAttribute('aria-checked') !== 'true';
+        switchControl.setAttribute('aria-checked', String(isEnabled));
+        switchControl.querySelector('span').classList.toggle('translate-x-5', isEnabled);
+        switchControl.classList.toggle('bg-biolum', isEnabled);
+        switchControl.classList.toggle('bg-slate-subtle', !isEnabled);
+        announce(`Collection notifications ${isEnabled ? 'enabled' : 'disabled'}.`);
+    });
+
+    styleguide.querySelectorAll('[data-tab]').forEach((tab) => {
+        tab.addEventListener('click', () => {
+            styleguide.querySelectorAll('[data-tab]').forEach((item) => {
+                item.setAttribute('aria-selected', String(item === tab));
+                item.classList.toggle('border-chanterelle', item === tab);
+                item.classList.toggle('text-chanterelle', item === tab);
+            });
+            styleguide.querySelectorAll('[data-tab-panel]').forEach((panel) => {
+                panel.classList.toggle('hidden', panel.dataset.tabPanel !== tab.dataset.tab);
+            });
+        });
+    });
+
+    const preview = styleguide.querySelector('[data-viewport-preview]');
+    styleguide.querySelectorAll('[data-viewport]').forEach((button) => {
+        button.addEventListener('click', () => {
+            preview.style.maxWidth = button.dataset.viewport;
+            announce(`${button.dataset.label} preview selected.`);
+        });
+    });
+
+    const dialog = styleguide.querySelector('[data-code-dialog]');
+    styleguide.querySelectorAll('[data-open-dialog]').forEach((button) => {
+        button.addEventListener('click', () => dialog.showModal());
+    });
+    styleguide.querySelector('[data-close-dialog]').addEventListener('click', () => dialog.close());
+}
