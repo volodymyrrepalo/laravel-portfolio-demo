@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+set -eu
+
+lando npm run lint:js
+lando composer run lint:phpstan
+lando composer run lint:phpcs
