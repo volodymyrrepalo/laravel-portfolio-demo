@@ -164,4 +164,19 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Rerun a test after each change to it.
 - Run `vendor/bin/phpunit` to call the test runner directly. It accepts the same file path and `--filter=testName` arguments.
 
+=== project/context rules ===
+
+# Project Context
+
+- Run local PHP, Composer, Artisan, and frontend commands through Lando. The
+  local stack provides PHP 8.3, MySQL 8.0, and Node 22.
+- Prefer Livewire for interactive interfaces. Use Laravel Reverb and Laravel
+  broadcasting for real-time features; start Reverb separately with `lando
+  reverb` when exercising those features.
+- Resolve local URLs with `lando info`; proxy ports and certificate availability
+  can differ between developer machines.
+- Significant technical choices are recorded as ADRs in
+  `docs/architecture/decisions/`. Read the existing ADRs before revisiting a
+  covered choice, and add an ADR when making a new durable architecture decision.
+
 </laravel-boost-guidelines>
