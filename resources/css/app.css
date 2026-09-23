@@ -3,7 +3,48 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-canopy: #0f1e17;
+    --color-canopy-surface: #182c23;
+    --color-canopy-light: #233f33;
+    --color-mist: #f4f7f4;
+    --color-mist-dark: #e2e9e2;
+    --color-spore: #1b4d3e;
+    --color-spore-hover: #143b2f;
+    --color-spore-light: #296d59;
+    --color-chanterelle: #d97706;
+    --color-chanterelle-light: #f59e0b;
+    --color-chanterelle-dark: #b45309;
+    --color-biolum: #0d9488;
+    --color-biolum-light: #14b8a6;
+    --color-biolum-dark: #0f766e;
+    --color-slate-deep: #1c2925;
+    --color-slate-muted: #3d524a;
+    --color-offwhite: #f9fafb;
+
+    --text-fluid-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);
+    --text-fluid-sm: clamp(0.875rem, 0.8rem + 0.38vw, 1rem);
+    --text-fluid-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --text-fluid-lg: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);
+    --text-fluid-xl: clamp(1.75rem, 1.5rem + 1.25vw, 2.5rem);
+    --text-fluid-2xl: clamp(2.25rem, 1.8rem + 2vw, 3.5rem);
+
+    --spacing-touch: 48px;
+    --shadow-glow: 0 0 15px rgb(13 148 136 / 30%);
+    --shadow-amber-glow: 0 0 15px rgb(217 119 6 / 35%);
+}
+
+@utility ada-focus {
+    outline: none;
+
+    &:focus-visible {
+        outline: 3px solid var(--color-chanterelle);
+        outline-offset: 3px;
+        border-radius: 0.25rem;
+    }
 }
