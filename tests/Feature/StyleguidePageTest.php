@@ -13,5 +13,10 @@ class StyleguidePageTest extends TestCase
         $response->assertSeeText('Mushroom Glades');
         $response->assertSeeText('Color system and contrast');
         $response->assertSeeText('Accessibility verification suite');
+        $response->assertSee('aria-label="Mobile navigation"', false);
+        $response->assertSeeText('Home');
+        $response->assertSeeText('Map');
+        $response->assertSeeText('Favorites');
+        $response->assertSeeText('Profile');
     }
 }

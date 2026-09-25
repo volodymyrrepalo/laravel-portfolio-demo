@@ -7,7 +7,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-mist font-sans text-slate-deep antialiased dark:bg-canopy dark:text-offwhite">
-        <main data-styleguide class="min-h-screen">
+        <main data-styleguide class="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
             <div class="sr-only" aria-live="polite" data-announcement></div>
 
             <header class="sticky top-0 z-30 border-b border-mist-border/80 bg-mist/95 backdrop-blur dark:border-canopy-border dark:bg-canopy/95">
@@ -168,5 +168,6 @@
 &lt;/article&gt;</code></pre></div>
             </dialog>
         </main>
+        <x-mobile-navigation-footer />
     </body>
 </html>
