@@ -7,37 +7,19 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-mist font-sans text-slate-deep antialiased dark:bg-canopy dark:text-offwhite">
+        <x-site-header />
         <main data-styleguide class="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
             <div class="sr-only" aria-live="polite" data-announcement></div>
 
-            <header class="sticky top-0 z-30 border-b border-mist-border/80 bg-mist/95 backdrop-blur dark:border-canopy-border dark:bg-canopy/95">
+            <div class="border-b border-mist-border bg-mist/80 dark:border-canopy-border dark:bg-canopy/80">
                 <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
-                    <a href="#top" class="ada-focus flex min-h-touch items-center gap-3 rounded-xl font-bold">
-                        <span class="grid size-10 place-items-center rounded-xl bg-chanterelle text-xl text-canopy">🍄</span>
-                        <span class="hidden sm:block">
-                            <span class="block text-sm">Mushroom Glades</span>
-                            <span class="block text-xs font-medium text-slate-subtle dark:text-mist-dark">Design system</span>
-                        </span>
-                    </a>
-
-                    <div class="relative ml-auto w-full max-w-md">
+                    <div class="relative w-full max-w-md">
                         <label class="sr-only" for="component-search">Search components</label>
                         <input id="component-search" data-search type="search" placeholder="Search components" class="ada-focus h-11 w-full rounded-xl border border-mist-border bg-mist-surface px-4 text-sm placeholder:text-slate-subtle dark:border-canopy-border dark:bg-canopy-surface dark:placeholder:text-mist-dark">
                     </div>
-
-                    <button type="button" data-menu-button aria-label="Toggle section menu" aria-controls="mobile-nav-menu" aria-expanded="false" class="touch-target-inspect ada-focus grid size-touch shrink-0 place-items-center rounded-xl border border-mist-border text-lg dark:border-canopy-border md:hidden">☰</button>
                     <button type="button" data-touch-grid aria-pressed="false" class="touch-target-inspect ada-focus hidden min-h-touch rounded-xl border border-mist-border px-3 text-xs font-bold sm:block dark:border-canopy-border">48px grid</button>
-                    <button type="button" data-theme-toggle aria-pressed="true" class="touch-target-inspect ada-focus min-h-touch shrink-0 rounded-xl bg-canopy-surface px-3 text-xs font-bold text-offwhite dark:bg-mist dark:text-canopy">Light mode</button>
                 </div>
-                <nav id="mobile-nav-menu" data-mobile-menu class="hidden border-t border-mist-border px-4 py-3 dark:border-canopy-border md:hidden" aria-label="Style guide sections">
-                    <div class="mx-auto flex max-w-7xl flex-wrap gap-2 text-sm font-semibold">
-                        <a class="ada-focus rounded-lg px-3 py-2 hover:text-chanterelle" href="#colors">Colors</a>
-                        <a class="ada-focus rounded-lg px-3 py-2 hover:text-chanterelle" href="#typography">Type</a>
-                        <a class="ada-focus rounded-lg px-3 py-2 hover:text-chanterelle" href="#controls">Controls</a>
-                        <a class="ada-focus rounded-lg px-3 py-2 hover:text-chanterelle" href="#forms">Forms</a>
-                    </div>
-                </nav>
-            </header>
+            </div>
 
             <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8" id="top">
                 <section class="mb-12 max-w-3xl space-y-4">

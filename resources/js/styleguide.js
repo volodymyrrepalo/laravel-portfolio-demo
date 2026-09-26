@@ -6,33 +6,10 @@ if (styleguide) {
         announcement.textContent = message;
     };
 
-    const themeToggle = styleguide.querySelector('[data-theme-toggle]');
-    const applyTheme = (isDark) => {
-        document.documentElement.classList.toggle('dark', isDark);
-        themeToggle.setAttribute('aria-pressed', String(isDark));
-        themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
-    };
-
-    applyTheme(localStorage.getItem('styleguide-theme') !== 'light');
-
-    themeToggle.addEventListener('click', () => {
-        const isDark = !document.documentElement.classList.contains('dark');
-        localStorage.setItem('styleguide-theme', isDark ? 'dark' : 'light');
-        applyTheme(isDark);
-        announce(`Switched to ${isDark ? 'dark' : 'light'} mode.`);
-    });
-
     styleguide.querySelector('[data-touch-grid]').addEventListener('click', (event) => {
         const isVisible = styleguide.classList.toggle('show-touch-grid');
         event.currentTarget.setAttribute('aria-pressed', String(isVisible));
         announce(`48 pixel touch target grid ${isVisible ? 'shown' : 'hidden'}.`);
-    });
-
-    const menuButton = styleguide.querySelector('[data-menu-button]');
-    const menu = styleguide.querySelector('[data-mobile-menu]');
-    menuButton.addEventListener('click', () => {
-        const isOpen = menu.classList.toggle('hidden') === false;
-        menuButton.setAttribute('aria-expanded', String(isOpen));
     });
 
     styleguide.querySelector('[data-search]').addEventListener('input', (event) => {

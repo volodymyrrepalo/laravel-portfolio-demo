@@ -7,4 +7,5 @@
  */
 
 import './echo';
+import './site-header';
 import './styleguide';
