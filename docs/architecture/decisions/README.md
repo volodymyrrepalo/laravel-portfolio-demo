@@ -10,5 +10,6 @@ sequentially and use a descriptive, kebab-case name.
 | [0003](0003-use-laravel-reverb-for-realtime-features.md) | Accepted | Use Laravel Reverb for real-time features |
 | [0004](0004-use-tailwind-v4-css-first-configuration.md) | Accepted | Use Tailwind CSS v4's CSS-first configuration |
 | [0005](0005-enforce-quality-checks-before-commits.md) | Accepted | Enforce static analysis and linting before commits |
+| [0006](0006-use-blade-mushroom-cards-and-accessible-carousel.md) | Accepted | Use Blade mushroom cards and an accessible carousel |
 
 Use [the template](template.md) for the next decision.
