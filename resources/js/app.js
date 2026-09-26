@@ -7,5 +7,6 @@
  */
 
 import './echo';
+import './mushroom-carousel';
 import './site-header';
 import './styleguide';

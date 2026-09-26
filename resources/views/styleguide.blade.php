@@ -7,6 +7,41 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-mist font-sans text-slate-deep antialiased dark:bg-canopy dark:text-offwhite">
+        @php
+            $mushrooms = [
+                [
+                    'name' => 'Golden Chanterelle',
+                    'scientificName' => 'Cantharellus cibarius',
+                    'summary' => 'A golden, funnel-shaped mushroom that forms mycorrhizal relationships with hardwood and conifer trees.',
+                    'imageUrl' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Cantharellus%20cibarius%20149403743.jpg?width=1200',
+                    'imageAlt' => 'Golden chanterelle mushrooms growing among moss and leaf litter.',
+                    'wikipediaUrl' => 'https://en.wikipedia.org/wiki/Cantharellus_cibarius',
+                    'creditUrl' => 'https://commons.wikimedia.org/wiki/File:Cantharellus_cibarius_149403743.jpg',
+                    'creditLabel' => 'Photo by muukalainen · CC0 via Wikimedia Commons',
+                ],
+                [
+                    'name' => 'Fly Agaric',
+                    'scientificName' => 'Amanita muscaria',
+                    'summary' => 'A distinctive red-capped mushroom with white spots, associated with temperate and boreal forests.',
+                    'imageUrl' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Amanita%20muscaria%20mushroom.jpg?width=1200',
+                    'imageAlt' => 'A red fly agaric mushroom with white spots growing in grass.',
+                    'wikipediaUrl' => 'https://en.wikipedia.org/wiki/Amanita_muscaria',
+                    'creditUrl' => 'https://commons.wikimedia.org/wiki/File:Amanita_muscaria_mushroom.jpg',
+                    'creditLabel' => 'Photo by Paolo Neo · Public domain via Wikimedia Commons',
+                ],
+                [
+                    'name' => 'Common Morel',
+                    'scientificName' => 'Morchella esculenta',
+                    'summary' => 'A honeycombed, spring-fruiting mushroom often found in temperate woodland habitats.',
+                    'imageUrl' => 'https://commons.wikimedia.org/wiki/Special:FilePath/Morchella%20esculenta%2070269680.jpg?width=1200',
+                    'imageAlt' => 'A common morel mushroom with a honeycombed cap growing in woodland leaf litter.',
+                    'wikipediaUrl' => 'https://en.wikipedia.org/wiki/Morchella_esculenta',
+                    'creditUrl' => 'https://commons.wikimedia.org/wiki/File:Morchella_esculenta_70269680.jpg',
+                    'creditLabel' => 'Photo by jlallaman · CC0 via Wikimedia Commons',
+                ],
+            ];
+        @endphp
+
         <x-site-header />
         <main data-styleguide class="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
             <div class="sr-only" aria-live="polite" data-announcement></div>
@@ -27,6 +62,8 @@
                     <h1 class="text-fluid-2xl font-black tracking-tight">A biophilic, mobile-first design language.</h1>
                     <p class="text-fluid-lg text-slate-muted dark:text-mist-dark">A Laravel-rendered reference for every visual and interactive element in the Mushroom Glades style guide.</p>
                 </section>
+
+                <x-mushroom-carousel :mushrooms="$mushrooms" class="mb-16" />
 
                 <div data-viewport-preview class="mx-auto transition-[max-width] duration-300">
                     <section id="colors" data-styleguide-section class="styleguide-section mb-16 space-y-6">
@@ -108,10 +145,16 @@
                             <div role="alert" class="rounded-2xl border border-chanterelle/50 bg-chanterelle/10 p-4 text-chanterelle-light"><strong>Attention:</strong> Review the field location before publishing.</div>
                         </div>
                         <div class="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-                            <article class="overflow-hidden rounded-3xl border border-mist-border bg-mist-surface shadow-lg dark:border-canopy-border dark:bg-canopy-surface">
-                                <div class="flex h-36 items-end bg-gradient-to-br from-spore via-canopy-surface to-biolum p-6"><span class="rounded-full bg-mist/90 px-3 py-1 text-xs font-bold text-canopy">Fungal profile</span></div>
-                                <div class="space-y-3 p-6"><div class="flex items-start justify-between gap-4"><div><h3 class="text-xl font-extrabold">Golden Chanterelle</h3><p class="italic text-slate-subtle dark:text-mist-dark">Cantharellus cibarius</p></div><span class="text-2xl">🍄</span></div><p class="text-sm leading-relaxed text-slate-muted dark:text-mist-dark">A bright, community-loved species that forms symbiotic relationships with hardwood trees.</p><button type="button" data-open-dialog class="ada-focus min-h-touch rounded-xl bg-spore px-4 text-sm font-bold text-offwhite hover:bg-spore-hover">View component code</button></div>
-                            </article>
+                            <x-mushroom-card
+                                :name="$mushrooms[0]['name']"
+                                :scientific-name="$mushrooms[0]['scientificName']"
+                                :summary="$mushrooms[0]['summary']"
+                                :image-url="$mushrooms[0]['imageUrl']"
+                                :image-alt="$mushrooms[0]['imageAlt']"
+                                :wikipedia-url="$mushrooms[0]['wikipediaUrl']"
+                                :credit-url="$mushrooms[0]['creditUrl']"
+                                :credit-label="$mushrooms[0]['creditLabel']"
+                            />
                             <aside class="grid grid-cols-2 gap-4 rounded-3xl border border-mist-border bg-mist-surface p-6 dark:border-canopy-border dark:bg-canopy-surface"><div><p class="text-3xl font-black text-chanterelle">48px</p><p class="text-sm font-semibold text-slate-subtle dark:text-mist-dark">minimum target</p></div><div><p class="text-3xl font-black text-biolum-light">AA</p><p class="text-sm font-semibold text-slate-subtle dark:text-mist-dark">contrast baseline</p></div><div class="col-span-2 border-t border-mist-border pt-4 dark:border-canopy-border"><p class="font-bold">Surface pattern</p><p class="mt-1 text-sm text-slate-muted dark:text-mist-dark">Rounded cards, subtle borders, and generous whitespace create a calm hierarchy.</p></div></aside>
                         </div>
                     </section>
@@ -144,11 +187,6 @@
 
             <footer class="border-t border-mist-border px-4 py-8 text-center text-sm text-slate-subtle dark:border-canopy-border dark:text-mist-dark">Mushroom Glades Design System · Laravel + Tailwind CSS</footer>
 
-            <dialog data-code-dialog class="w-[min(32rem,calc(100%-2rem))] rounded-3xl border border-mist-border bg-mist p-0 text-slate-deep shadow-2xl backdrop:bg-canopy/80 dark:border-canopy-border dark:bg-canopy-surface dark:text-offwhite">
-                <div class="space-y-4 p-6"><div class="flex items-center justify-between gap-4"><h2 class="text-lg font-extrabold">Card component pattern</h2><button type="button" data-close-dialog class="ada-focus grid size-touch place-items-center rounded-xl border border-mist-border dark:border-canopy-border" aria-label="Close dialog">×</button></div><pre class="overflow-x-auto rounded-xl bg-canopy p-4 text-xs text-mist"><code>&lt;article class=&quot;rounded-3xl border p-6&quot;&gt;
-    &lt;h3&gt;Golden Chanterelle&lt;/h3&gt;
-&lt;/article&gt;</code></pre></div>
-            </dialog>
         </main>
         <x-mobile-navigation-footer />
     </body>

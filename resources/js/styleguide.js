@@ -62,9 +62,4 @@ if (styleguide) {
         });
     });
 
-    const dialog = styleguide.querySelector('[data-code-dialog]');
-    styleguide.querySelectorAll('[data-open-dialog]').forEach((button) => {
-        button.addEventListener('click', () => dialog.showModal());
-    });
-    styleguide.querySelector('[data-close-dialog]').addEventListener('click', () => dialog.close());
 }

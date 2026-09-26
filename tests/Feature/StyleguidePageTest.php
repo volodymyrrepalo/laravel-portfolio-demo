@@ -20,4 +20,21 @@ class StyleguidePageTest extends TestCase
         $response->assertSeeText('Favorites');
         $response->assertSeeText('Profile');
     }
+
+    public function test_styleguide_page_renders_the_mushroom_carousel(): void
+    {
+        $response = $this->get('/styleguide');
+
+        $response->assertSee('aria-roledescription="carousel"', false);
+        $response->assertSee('aria-label="Mushroom highlights"', false);
+        $response->assertSeeText('Golden Chanterelle');
+        $response->assertSeeText('Fly Agaric');
+        $response->assertSeeText('Common Morel');
+        $response->assertSeeText('Previous mushroom');
+        $response->assertSeeText('Next mushroom');
+        $response->assertSeeText('Explore on Wikipedia');
+        $response->assertSeeText('CC0 via Wikimedia Commons');
+        $response->assertSeeText('Public domain via Wikimedia Commons');
+        $response->assertSee('https://en.wikipedia.org/wiki/Cantharellus_cibarius', false);
+    }
 }
