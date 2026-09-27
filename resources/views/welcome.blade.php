@@ -51,7 +51,11 @@
 
         <x-site-header active="home" />
 
-        <x-mushroom-carousel :mushrooms="$mushrooms" class="mb-16" />
+        <main data-styleguide class="min-h-screen pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0">
+            <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8" id="top">
+                <x-mushroom-carousel :mushrooms="$mushrooms" class="mb-16" />
+            </div>
+        </main>
 
         <x-mobile-navigation-footer />
     </body>

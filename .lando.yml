@@ -13,10 +13,16 @@ proxy:
   appserver:
     - lararepalo.lndo.site
     - reverb.lararepalo.lndo.site:8080
+  mailpit:
+    - mail.lararepalo.lndo.site
 
 services:
   node:
     type: node:22
+  mailpit:
+    type: mailpit
+    mailFrom:
+      - appserver
 
 tooling:
   reverb:
