@@ -29,7 +29,7 @@
             </div>
 
             <div class="mt-4 grid grid-cols-2 gap-3">
-                <button type="button" data-carousel-previous class="ada-focus min-h-touch rounded-xl border border-mist-border px-4 text-sm font-bold hover:bg-mist-dark disabled:cursor-not-allowed disabled:opacity-50 dark:border-canopy-border dark:hover:bg-canopy-light">Previous mushroom</button>
+                <button type="button" data-carousel-previous class="ada-focus min-h-touch rounded-xl border border-mist-border px-4 text-sm font-bold hover:bg-mist-dark disabled:cursor-not-allowed disabled:opacity-50 dark:text-mist-dark dark:border-canopy-border dark:hover:bg-canopy-light">Previous mushroom</button>
                 <button type="button" data-carousel-next class="ada-focus min-h-touch rounded-xl bg-chanterelle px-4 text-sm font-bold text-canopy hover:bg-chanterelle-hover disabled:cursor-not-allowed disabled:opacity-50">Next mushroom</button>
             </div>
         </div>
