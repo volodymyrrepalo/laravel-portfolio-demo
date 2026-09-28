@@ -74,7 +74,7 @@ class MapAccessTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_user_can_create_update_and_delete_their_own_map_pin(): void
+    public function test_user_can_create_favorite_update_and_delete_their_own_map_pin(): void
     {
         $user = User::factory()->create();
 
@@ -92,6 +92,19 @@ class MapAccessTest extends TestCase
             'id' => $mapPin->id,
             'user_id' => $user->id,
             'comment' => 'Golden chanterelles under an oak tree',
+        ]);
+
+        Livewire::actingAs($user)
+            ->test('map.pin-manager')
+            ->call('selectPin', $mapPin->id)
+            ->call('toggleSelectedFavorite')
+            ->assertSet('selectedPinIsFavorite', true)
+            ->assertSet('statusMessage', 'Pin added to your favorites.')
+            ->assertSee('Remove from favorites');
+
+        $this->assertDatabaseHas('map_pin_favorites', [
+            'user_id' => $user->id,
+            'map_pin_id' => $mapPin->id,
         ]);
 
         Livewire::actingAs($user)
@@ -115,6 +128,7 @@ class MapAccessTest extends TestCase
             ->assertDispatched('map-pins-updated');
 
         $this->assertModelMissing($mapPin);
+        $this->assertDatabaseCount('map_pin_favorites', 0);
     }
 
     public function test_pin_creation_rejects_coordinates_outside_the_map_bounds(): void
@@ -159,5 +173,37 @@ class MapAccessTest extends TestCase
             ->assertSee($visiblePin->comment)
             ->assertDontSee($hiddenPin->comment)
             ->assertSee('x-on:input="filterPins()"', false);
+    }
+
+    public function test_selected_pin_form_is_rendered_as_a_map_overlay(): void
+    {
+        $user = User::factory()->create();
+
+        Livewire::actingAs($user)
+            ->test('map.pin-manager')
+            ->call('beginCreating', 50.4501, 30.5234)
+            ->assertSee('absolute inset-0 z-20', false)
+            ->assertSee('aria-modal="true"', false);
+    }
+
+    public function test_user_can_remove_a_pin_from_favorites(): void
+    {
+        $user = User::factory()->create();
+        $mapPin = MapPin::factory()->for($user)->create();
+        $user->favoriteMapPins()->attach($mapPin);
+
+        Livewire::actingAs($user)
+            ->test('map.pin-manager')
+            ->call('selectPin', $mapPin->id)
+            ->assertSet('selectedPinIsFavorite', true)
+            ->call('toggleSelectedFavorite')
+            ->assertSet('selectedPinIsFavorite', false)
+            ->assertSet('statusMessage', 'Pin removed from your favorites.')
+            ->assertSee('Add to favorites');
+
+        $this->assertDatabaseMissing('map_pin_favorites', [
+            'user_id' => $user->id,
+            'map_pin_id' => $mapPin->id,
+        ]);
     }
 }

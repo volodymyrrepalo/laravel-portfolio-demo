@@ -9,7 +9,7 @@
     ];
 @endphp
 
-<footer {{ $attributes->merge(['class' => 'fixed inset-x-0 bottom-0 z-40 border-t border-mist-border bg-mist/95 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgb(15_30_23_/_12%)] backdrop-blur md:hidden dark:border-canopy-border dark:bg-canopy-surface/95 dark:shadow-[0_-8px_24px_rgb(0_0_0_/_35%)]']) }}>
+<footer {{ $attributes->merge(['class' => 'fixed inset-x-0 bottom-0 z-1100 border-t border-mist-border bg-mist/95 px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgb(15_30_23_/_12%)] backdrop-blur md:hidden dark:border-canopy-border dark:bg-canopy-surface/95 dark:shadow-[0_-8px_24px_rgb(0_0_0_/_35%)]']) }}>
     <nav aria-label="Mobile navigation" class="mx-auto grid max-w-md grid-cols-4 gap-1">
         @foreach ($items as $item)
             <a
