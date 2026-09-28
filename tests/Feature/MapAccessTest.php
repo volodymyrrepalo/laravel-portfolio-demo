@@ -175,15 +175,19 @@ class MapAccessTest extends TestCase
             ->assertSee('x-on:input="filterPins()"', false);
     }
 
-    public function test_selected_pin_form_is_rendered_as_a_map_overlay(): void
+    public function test_interactive_map_is_ignored_while_the_editor_remains_livewire_managed(): void
     {
         $user = User::factory()->create();
 
         Livewire::actingAs($user)
             ->test('map.pin-manager')
             ->call('beginCreating', 50.4501, 30.5234)
-            ->assertSee('absolute inset-0 z-20', false)
-            ->assertSee('aria-modal="true"', false);
+            ->assertSee('wire:ignore', false)
+            ->assertSee('fixed inset-0 z-[1100]', false)
+            ->assertSee('aria-modal="true"', false)
+            ->set('comment', 'Fresh pin')
+            ->call('save')
+            ->assertSee('Pin saved to your map.');
     }
 
     public function test_user_can_remove_a_pin_from_favorites(): void
