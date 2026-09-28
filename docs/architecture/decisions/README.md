@@ -13,5 +13,6 @@ sequentially and use a descriptive, kebab-case name.
 | [0006](0006-use-blade-mushroom-cards-and-accessible-carousel.md) | Accepted | Use Blade mushroom cards and an accessible carousel |
 | [0007](0007-use-livewire-profile-access-and-email-verification.md) | Accepted | Use Livewire profile access and email verification |
 | [0008](0008-use-leaflet-and-private-map-pins.md) | Accepted | Use Leaflet and private map pins |
+| [0009](0009-use-private-favorite-map-pins.md) | Accepted | Use private favorite map pins |
 
 Use [the template](template.md) for the next decision.
