@@ -14,5 +14,6 @@ sequentially and use a descriptive, kebab-case name.
 | [0007](0007-use-livewire-profile-access-and-email-verification.md) | Accepted | Use Livewire profile access and email verification |
 | [0008](0008-use-leaflet-and-private-map-pins.md) | Accepted | Use Leaflet and private map pins |
 | [0009](0009-use-private-favorite-map-pins.md) | Accepted | Use private favorite map pins |
+| [0010](0010-use-livewire-profile-account-management.md) | Accepted | Use Livewire profile account management |
 
 Use [the template](template.md) for the next decision.
