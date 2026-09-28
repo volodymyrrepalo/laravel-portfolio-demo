@@ -7,7 +7,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-mist font-sans text-slate-deep antialiased dark:bg-canopy dark:text-offwhite">
-        <x-site-header active="profile" />
+        <x-site-header :active="$intendedRoute" />
         <main class="min-h-screen px-4 py-10 pb-[calc(5rem+env(safe-area-inset-bottom))] sm:px-6 md:pb-10">
             <section class="mx-auto max-w-xl rounded-3xl border border-mist-border bg-mist-surface p-6 shadow-lg dark:border-canopy-border dark:bg-canopy-surface sm:p-8">
                 <p class="text-sm font-bold uppercase tracking-[0.18em] text-chanterelle">One last step</p>
@@ -22,6 +22,6 @@
                 </form>
             </section>
         </main>
-        <x-mobile-navigation-footer active="profile" />
+        <x-mobile-navigation-footer :active="$intendedRoute" />
     </body>
 </html>

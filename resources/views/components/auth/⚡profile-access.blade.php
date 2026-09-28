@@ -14,6 +14,8 @@ new class extends Component
 {
     public string $mode = 'login';
 
+    public string $intendedRoute = 'profile';
+
     public string $loginEmail = '';
 
     public string $loginPassword = '';
@@ -25,6 +27,13 @@ new class extends Component
     public string $registrationPassword = '';
 
     public string $registrationPasswordConfirmation = '';
+
+    public function mount(string $intendedRoute = 'profile'): void
+    {
+        $this->intendedRoute = in_array($intendedRoute, ['profile', 'map'], true)
+            ? $intendedRoute
+            : 'profile';
+    }
 
     public function showLogin(): void
     {
@@ -57,10 +66,21 @@ new class extends Component
             ]);
         }
 
+        /** @var User|null $user */
+        $user = Auth::user();
+
         RateLimiter::clear($key);
         session()->regenerate();
 
-        $this->redirectRoute('profile', navigate: false);
+        if ($user !== null && ! $user->hasVerifiedEmail()) {
+            session()->put('auth.access.intended_route', $this->intendedRoute);
+
+            $this->redirectRoute('verification.notice', navigate: false);
+
+            return;
+        }
+
+        $this->redirectRoute($this->intendedRoute, navigate: false);
     }
 
     public function register(): void
@@ -89,6 +109,7 @@ new class extends Component
         event(new Registered($user));
         Auth::login($user);
         session()->regenerate();
+        session()->put('auth.access.intended_route', $this->intendedRoute);
 
         $this->redirectRoute('verification.notice', navigate: false);
     }
@@ -118,8 +139,8 @@ new class extends Component
 
 <div class="mx-auto w-full max-w-xl rounded-3xl border border-mist-border bg-mist-surface p-6 shadow-lg dark:border-canopy-border dark:bg-canopy-surface sm:p-8">
     <div class="mb-6 text-center">
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-chanterelle">Profile access</p>
-        <h1 class="mt-2 text-fluid-xl font-extrabold">Grow your field journal.</h1>
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-chanterelle">{{ $intendedRoute === 'map' ? 'Map access' : 'Profile access' }}</p>
+        <h1 class="mt-2 text-fluid-xl font-extrabold">{{ $intendedRoute === 'map' ? 'Map your mushroom finds.' : 'Grow your field journal.' }}</h1>
         <p class="mt-2 text-sm text-slate-muted dark:text-mist-dark">Sign in to continue or create an account to begin.</p>
     </div>
 

@@ -78,3 +78,18 @@
         border-radius: inherit;
     }
 }
+
+.leaflet-container {
+    font: inherit;
+}
+
+.dark .leaflet-control-zoom a,
+.dark .leaflet-control-attribution {
+    border-color: var(--color-canopy-border);
+    background: var(--color-canopy-surface);
+    color: var(--color-mist-dark);
+}
+
+.dark .leaflet-control-attribution a {
+    color: var(--color-chanterelle-light);
+}

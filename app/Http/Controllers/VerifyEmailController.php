@@ -31,6 +31,15 @@ class VerifyEmailController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return view('auth.email-confirmed', ['user' => $user]);
+        $intendedRoute = $request->session()->pull('auth.access.intended_route', 'profile');
+
+        if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+            $intendedRoute = 'profile';
+        }
+
+        return view('auth.email-confirmed', [
+            'user' => $user,
+            'intendedRoute' => $intendedRoute,
+        ]);
     }
 }

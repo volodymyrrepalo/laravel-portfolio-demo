@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\RedirectResponse;
@@ -15,17 +16,31 @@ Route::view('/styleguide', 'styleguide')->name('styleguide');
 
 Route::get('/profile', ProfileController::class)->name('profile');
 
+Route::get('/map', MapController::class)->name('map');
+
 Route::get('/email/verify', function (Request $request): RedirectResponse|View {
-    if ($request->user()->hasVerifiedEmail()) {
-        return redirect()->route('profile');
+    $intendedRoute = session('auth.access.intended_route', 'profile');
+
+    if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+        $intendedRoute = 'profile';
     }
 
-    return view('auth.verify-email');
+    if ($request->user()->hasVerifiedEmail()) {
+        return redirect()->route($intendedRoute);
+    }
+
+    return view('auth.verify-email', ['intendedRoute' => $intendedRoute]);
 })->middleware('auth')->name('verification.notice');
 
 Route::post('/email/verification-notification', function (Request $request): RedirectResponse {
+    $intendedRoute = session('auth.access.intended_route', 'profile');
+
+    if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+        $intendedRoute = 'profile';
+    }
+
     if ($request->user()->hasVerifiedEmail()) {
-        return redirect()->route('profile');
+        return redirect()->route($intendedRoute);
     }
 
     $request->user()->sendEmailVerificationNotification();

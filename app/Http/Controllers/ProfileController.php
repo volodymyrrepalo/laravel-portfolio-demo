@@ -18,10 +18,12 @@ class ProfileController extends Controller
         $user = $request->user();
 
         if ($user === null) {
-            return view('auth.access');
+            return view('auth.access', ['intendedRoute' => 'profile']);
         }
 
         if (! $user->hasVerifiedEmail()) {
+            $request->session()->put('auth.access.intended_route', 'profile');
+
             return redirect()->route('verification.notice');
         }
 

@@ -8,5 +8,6 @@
 
 import './echo';
 import './mushroom-carousel';
+import './map-pin-manager';
 import './site-header';
 import './styleguide';
