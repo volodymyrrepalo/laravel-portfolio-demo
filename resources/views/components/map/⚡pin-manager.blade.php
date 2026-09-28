@@ -7,6 +7,8 @@ use Livewire\Component;
 
 new class extends Component
 {
+    public ?int $focusedPinId = null;
+
     public ?int $selectedPinId = null;
 
     public ?float $latitude = null;
@@ -208,7 +210,7 @@ new class extends Component
 >
     <div
         wire:ignore
-    x-data="mapPinManager($wire, @js($this->pins()))"
+    x-data="mapPinManager($wire, @js($this->pins()), @js($focusedPinId))"
     x-init="init()"
     x-on:map-pins-updated.window="replacePins($event.detail.pins)"
 >

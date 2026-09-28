@@ -4,7 +4,7 @@
     $items = [
         ['key' => 'home', 'label' => 'Home', 'href' => url('/')],
         ['key' => 'map', 'label' => 'Map', 'href' => route('map')],
-        ['key' => 'favorites', 'label' => 'Favorites', 'href' => '#cards'],
+        ['key' => 'favorites', 'label' => 'Favorites', 'href' => route('favorites')],
         ['key' => 'profile', 'label' => 'Profile', 'href' => route('profile')],
     ];
 @endphp
@@ -20,7 +20,6 @@
                     'bg-chanterelle/15 text-chanterelle-dark dark:bg-chanterelle/20 dark:text-chanterelle-light' => $active === $item['key'],
                     'text-slate-muted hover:bg-mist-dark hover:text-spore dark:text-mist-dark dark:hover:bg-canopy-light dark:hover:text-offwhite' => $active !== $item['key'],
                 ])
-                @if (! in_array($item['key'], ['home', 'map', 'profile'], true)) data-demo-navigation-target title="Demo target: {{ $item['label'] }}" @endif
             >
                 @switch($item['key'])
                     @case('home')

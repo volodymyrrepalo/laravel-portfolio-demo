@@ -2,7 +2,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { redrawMapPinMarkers } from './map-pin-markers';
 
-window.mapPinManager = (wire, pins) => {
+window.mapPinManager = (wire, pins, focusedPinId = null) => {
     let leafletState;
 
     return {
@@ -42,7 +42,10 @@ window.mapPinManager = (wire, pins) => {
             });
 
             this.renderPins();
-            this.fitPins();
+
+            if (!this.focusPin()) {
+                this.fitPins();
+            }
         },
 
         replacePins(pins) {
@@ -100,6 +103,18 @@ window.mapPinManager = (wire, pins) => {
 
             const bounds = L.latLngBounds(this.pins.map((pin) => [pin.latitude, pin.longitude]));
             leafletState.map.fitBounds(bounds, { padding: [32, 32], maxZoom: 14 });
+        },
+
+        focusPin() {
+            const focusedPin = this.pins.find((pin) => pin.id === focusedPinId);
+
+            if (!focusedPin) {
+                return false;
+            }
+
+            leafletState.map.setView([focusedPin.latitude, focusedPin.longitude], 15);
+
+            return true;
         },
 
         useCurrentLocation() {

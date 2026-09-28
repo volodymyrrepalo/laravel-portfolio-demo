@@ -4,7 +4,7 @@
     $items = [
         ['key' => 'home', 'label' => 'Home', 'href' => url('/')],
         ['key' => 'map', 'label' => 'Map', 'href' => route('map')],
-        ['key' => 'favorites', 'label' => 'Favorites', 'href' => '#cards'],
+        ['key' => 'favorites', 'label' => 'Favorites', 'href' => route('favorites')],
         ['key' => 'profile', 'label' => 'Profile', 'href' => route('profile')],
     ];
 @endphp
@@ -30,7 +30,6 @@
                         'bg-chanterelle/15 text-chanterelle-dark dark:bg-chanterelle/20 dark:text-chanterelle-light' => $active === $item['key'],
                         'text-slate-muted hover:bg-mist-dark hover:text-spore dark:text-mist-dark dark:hover:bg-canopy-light dark:hover:text-offwhite' => $active !== $item['key'],
                     ])
-                    @if (! in_array($item['key'], ['home', 'map', 'profile'], true)) data-demo-navigation-target title="Demo target: {{ $item['label'] }}" @endif
                 >{{ $item['label'] }}</a>
             @endforeach
         </nav>
@@ -40,7 +39,7 @@
     </div>
     </header>
 
-    <nav id="mobile-navigation-menu" data-mobile-menu class="fixed inset-0 z-50 hidden min-h-dvh bg-canopy px-6 text-offwhite md:hidden" aria-label="Mobile navigation">
+    <nav id="mobile-navigation-menu" data-mobile-menu class="fixed inset-0 z-1100 hidden min-h-dvh bg-canopy px-6 text-offwhite md:hidden" aria-label="Mobile navigation">
         <button type="button" data-menu-close aria-label="Close navigation" class="ada-focus absolute top-4 right-4 grid size-touch place-items-center rounded-xl border border-canopy-border text-2xl text-chanterelle">×</button>
         <div class="flex min-h-dvh flex-col items-center justify-center gap-5 text-center">
             @foreach ($items as $item)
@@ -52,7 +51,6 @@
                         'bg-chanterelle/20 text-chanterelle-light' => $active === $item['key'],
                         'text-mist hover:bg-canopy-light hover:text-chanterelle' => $active !== $item['key'],
                     ])
-                    @if (! in_array($item['key'], ['home', 'map', 'profile'], true)) data-demo-navigation-target title="Demo target: {{ $item['label'] }}" @endif
                 >{{ $item['label'] }}</a>
             @endforeach
         </div>

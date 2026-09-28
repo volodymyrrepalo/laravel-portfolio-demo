@@ -13,7 +13,7 @@
                 <p class="text-sm font-bold uppercase tracking-[0.18em] text-biolum-light">Email confirmed</p>
                 <h1 class="mt-2 text-fluid-xl font-extrabold">Welcome, {{ $user->name }}.</h1>
                 <p class="mt-3 text-slate-muted dark:text-mist-dark">Your Mushroom Glades account is ready. Your field journal will grow here soon.</p>
-                <a href="{{ route($intendedRoute) }}" class="ada-focus mt-6 inline-flex min-h-touch items-center rounded-xl bg-chanterelle px-5 font-bold text-canopy hover:bg-chanterelle-hover">Go to {{ $intendedRoute === 'map' ? 'Map' : 'Profile' }}</a>
+                <a href="{{ route($intendedRoute) }}" class="ada-focus mt-6 inline-flex min-h-touch items-center rounded-xl bg-chanterelle px-5 font-bold text-canopy hover:bg-chanterelle-hover">Go to {{ match ($intendedRoute) { 'map' => 'Map', 'favorites' => 'Favorites', default => 'Profile' } }}</a>
             </section>
         </main>
         <x-mobile-navigation-footer :active="$intendedRoute" />

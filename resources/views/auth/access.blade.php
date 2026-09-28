@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ $intendedRoute === 'map' ? 'Map access' : 'Profile access' }} · Mushroom Glades</title>
+        <title>{{ match ($intendedRoute) { 'map' => 'Map access', 'favorites' => 'Favorites access', default => 'Profile access' } }} · Mushroom Glades</title>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-mist font-sans text-slate-deep antialiased dark:bg-canopy dark:text-offwhite">

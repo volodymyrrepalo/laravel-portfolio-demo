@@ -14,7 +14,7 @@
                 <h1 class="mt-2 text-fluid-xl font-extrabold">Your mushroom map</h1>
                 <p class="mt-3 max-w-2xl text-slate-muted dark:text-mist-dark">Mark the places you have explored and keep a private note with each find.</p>
 
-                <livewire:map.pin-manager />
+                <livewire:map.pin-manager :focused-pin-id="$focusedPinId" />
             </section>
         </main>
         <x-mobile-navigation-footer active="map" />

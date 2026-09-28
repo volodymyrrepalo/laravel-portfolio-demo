@@ -27,6 +27,15 @@ class MapController extends Controller
             return redirect()->route('verification.notice');
         }
 
-        return view('map', ['user' => $user]);
+        $focusedPinId = $request->integer('pin');
+
+        if ($focusedPinId <= 0 || ! $user->mapPins()->whereKey($focusedPinId)->exists()) {
+            $focusedPinId = null;
+        }
+
+        return view('map', [
+            'focusedPinId' => $focusedPinId,
+            'user' => $user,
+        ]);
     }
 }

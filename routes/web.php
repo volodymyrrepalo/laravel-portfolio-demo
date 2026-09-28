@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VerifyEmailController;
@@ -18,10 +19,12 @@ Route::get('/profile', ProfileController::class)->name('profile');
 
 Route::get('/map', MapController::class)->name('map');
 
+Route::get('/favorites', FavoritesController::class)->name('favorites');
+
 Route::get('/email/verify', function (Request $request): RedirectResponse|View {
     $intendedRoute = session('auth.access.intended_route', 'profile');
 
-    if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+    if (! in_array($intendedRoute, ['profile', 'map', 'favorites'], true)) {
         $intendedRoute = 'profile';
     }
 
@@ -35,7 +38,7 @@ Route::get('/email/verify', function (Request $request): RedirectResponse|View {
 Route::post('/email/verification-notification', function (Request $request): RedirectResponse {
     $intendedRoute = session('auth.access.intended_route', 'profile');
 
-    if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+    if (! in_array($intendedRoute, ['profile', 'map', 'favorites'], true)) {
         $intendedRoute = 'profile';
     }
 

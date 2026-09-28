@@ -30,7 +30,7 @@ new class extends Component
 
     public function mount(string $intendedRoute = 'profile'): void
     {
-        $this->intendedRoute = in_array($intendedRoute, ['profile', 'map'], true)
+        $this->intendedRoute = in_array($intendedRoute, ['profile', 'map', 'favorites'], true)
             ? $intendedRoute
             : 'profile';
     }
@@ -139,8 +139,8 @@ new class extends Component
 
 <div class="mx-auto w-full max-w-xl rounded-3xl border border-mist-border bg-mist-surface p-6 shadow-lg dark:border-canopy-border dark:bg-canopy-surface sm:p-8">
     <div class="mb-6 text-center">
-        <p class="text-sm font-bold uppercase tracking-[0.18em] text-chanterelle">{{ $intendedRoute === 'map' ? 'Map access' : 'Profile access' }}</p>
-        <h1 class="mt-2 text-fluid-xl font-extrabold">{{ $intendedRoute === 'map' ? 'Map your mushroom finds.' : 'Grow your field journal.' }}</h1>
+        <p class="text-sm font-bold uppercase tracking-[0.18em] text-chanterelle">{{ match ($intendedRoute) { 'map' => 'Map access', 'favorites' => 'Favorites access', default => 'Profile access' } }}</p>
+        <h1 class="mt-2 text-fluid-xl font-extrabold">{{ match ($intendedRoute) { 'map' => 'Map your mushroom finds.', 'favorites' => 'Return to your favorite finds.', default => 'Grow your field journal.' } }}</h1>
         <p class="mt-2 text-sm text-slate-muted dark:text-mist-dark">Sign in to continue or create an account to begin.</p>
     </div>
 

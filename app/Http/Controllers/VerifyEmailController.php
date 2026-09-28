@@ -33,7 +33,7 @@ class VerifyEmailController extends Controller
 
         $intendedRoute = $request->session()->pull('auth.access.intended_route', 'profile');
 
-        if (! in_array($intendedRoute, ['profile', 'map'], true)) {
+        if (! in_array($intendedRoute, ['profile', 'map', 'favorites'], true)) {
             $intendedRoute = 'profile';
         }
 
