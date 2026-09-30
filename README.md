@@ -1,58 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mushroom Glades
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Mushroom Glades is a responsive, mobile-first field journal for mushroom
+foragers. It lets each forager keep a private map of promising spots, add
+notes about what they found, filter those notes, and save favorite locations
+for quick return visits.
 
-## About Laravel
+## Live Demo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Explore the working application at
+[mushroomglades.infinityfree.io](https://mushroomglades.infinityfree.io/).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Create a verified account and manage account details securely.
+- Add, edit, and delete private map pins with optional foraging notes.
+- Filter saved pins instantly with a case-insensitive search over comments.
+- Add useful pins to a personal Favorites list and open them directly on the
+  map.
+- Keep pins and favorites private to their owner.
+- Use the application comfortably on phones, tablets, and desktop screens with
+  light and dark themes.
 
-## Learning Laravel
+## Tech Stack
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [Laravel 13](https://laravel.com/) and [PHP 8.3](https://www.php.net/)
+- [Livewire 4](https://livewire.laravel.com/) for server-driven interactions
+- [MySQL 8](https://www.mysql.com/) for application data
+- [Leaflet](https://leafletjs.com/) with [OpenStreetMap](https://www.openstreetmap.org/)
+  tiles for the map
+- [Tailwind CSS 4](https://tailwindcss.com/) and [Vite](https://vite.dev/) for
+  responsive UI and assets
+- [Laravel Reverb](https://reverb.laravel.com/) for WebSocket capability
+- [Lando](https://lando.dev/) for local containers, with Mailpit for local mail
+  inspection
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Folder Structure
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+app/                    Laravel application code, models, policies, and controllers
+database/migrations/    Versioned database schema
+docs/architecture/      Architecture notes and ADRs
+resources/views/        Blade pages and Livewire components
+resources/js/           Browser-side integrations, including Leaflet
+tests/Feature/          Application feature tests
+.lando.yml              Lando PHP, MySQL, Node, and Mailpit configuration
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Local Setup
 
-## Contributing
+### Requirements
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- [Lando](https://docs.lando.dev/getting-started/installation.html)
+- Docker, as required by Lando
 
-## Code of Conduct
+### Start the application
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone <your-github-repository-url>
+cd lararepalo
+cp .env.example .env
+lando start
+lando composer install
+lando npm ci
+lando artisan key:generate
+lando artisan migrate
+lando npm run build
+```
 
-## Security Vulnerabilities
+Run `lando info` to find the local application and Mailpit URLs. For active
+frontend development, run `lando npm run dev` in a separate terminal. Laravel
+Reverb can be started with `lando reverb` when working on WebSocket features.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Security
+
+- Map pins and favorites are authorized per user and are not public.
+- Protected pages require an authenticated, verified email address.
+- Passwords use Laravel's secure hashing, with confirmation and strength
+  validation for registration and password changes.
+- Changing an email address requires the current password and verification of
+  the new address.
+- Password changes invalidate other active sessions; sensitive actions such as
+  account deletion require the current password.
+- Authentication and registration attempts are rate limited.
+- `.env` files, dependencies, compiled assets, and real database data are not
+  committed. The included SQL snapshot contains schema only.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is released under the [MIT License](LICENSE).
